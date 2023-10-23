@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+import sys
+
+def factorize(n):
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return i, n // i
+    return n, 1
+
+if len(sys.argv) != 2:
+    print("Usage: factors <file>")
+    sys.exit(1)
+
+input_file = sys.argv[1]
+
+try:
+    with open(input_file, 'r') as file:
+        for line in file:
+            number = int(line.strip())
+            p, q = factorize(number)
+            print(f"{number}={p}*{q}")
+
+except FileNotFoundError:
+    print(f"File '{input_file}' not found.")
+
+except ValueError:
+    print("Invalid input. Make sure the file contains valid natural numbers greater than 1, one per line.")
+
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+
